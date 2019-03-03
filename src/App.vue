@@ -37,7 +37,7 @@ export default {
     return {
       sideNav: false,
       menuItems: [
-        { icon: 'supervised_user_circle', title: 'Meetups', link: '/meetup'},
+        { icon: 'supervised_user_circle', title: 'Meetups', link: '/meetups'},
         { icon: 'room', title: 'Organize Meetup', link: '/meetups/new'},
         { icon: 'person', title: 'Profile', link: '/profile'},
         { icon: 'face', title: 'Sign up', link: '/signup'},
