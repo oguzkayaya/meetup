@@ -7,7 +7,7 @@
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-action>{{ item.title }}</v-list-tile-action>
-        </v-list-tile>  
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar dark>
@@ -37,12 +37,12 @@ export default {
     return {
       sideNav: false,
       menuItems: [
-        { icon: 'supervised_user_circle', title: 'Meetups', link: '/meetups'},
-        { icon: 'room', title: 'Organize Meetup', link: '/meetups/new'},
-        { icon: 'person', title: 'Profile', link: '/profile'},
-        { icon: 'face', title: 'Sign up', link: '/signup'},
-        { icon: 'lock_open', title: 'Sign in', link: '/signin'},
-      ],
+        { icon: "supervised_user_circle", title: "Meetups", link: "/meetups" },
+        { icon: "room", title: "Organize Meetup", link: "/meetups/new" },
+        { icon: "person", title: "Profile", link: "/profile" },
+        { icon: "face", title: "Sign up", link: "/signup" },
+        { icon: "lock_open", title: "Sign in", link: "/signin" }
+      ]
     };
   }
 };

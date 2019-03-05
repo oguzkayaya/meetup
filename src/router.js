@@ -17,7 +17,7 @@ export default new Router({
   routes: [
     { path: "/", name: 'Home', component: Home },
     { path: "/meetups", name: 'Meetups', component: Meetups },
-    { path: '/meetup/:id', name: 'Meetup', component: Meetup},
+    { path: '/meetup/:id', name: 'Meetup', component: Meetup, props: true},
     { path: "/meetups/new", name: 'CreateMeetup', component: CreateMeetup },
     { path: "/profile", name: 'Profile', component: Profile },
     { path: "/signin", name: 'Signin', component: Signin },

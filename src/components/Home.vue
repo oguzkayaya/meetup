@@ -33,23 +33,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-      meetups: [
-        {
-          imageUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/4/40/11600_Ge%C3%A7itli-S%C3%B6%C4%9F%C3%BCt-Bilecik%2C_Turkey_-_panoramio_%2815%29.jpg",
-          id: "qwe11231",
-          title: "Bilecik Buluşması"
-        },
-        {
-          imageUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Paris_Night.jpg/1280px-Paris_Night.jpg",
-          id: "asdh121",
-          title: "Meetup in Paris"
-        }
-      ]
-    };
+  computed: {
+    meetups() {
+      return this.$store.getters.featuredMeetups
+    }
   },
   methods: {
     loadMeetup(id) {
