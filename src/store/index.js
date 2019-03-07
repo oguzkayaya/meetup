@@ -26,7 +26,9 @@ export const store = new Vuex.Store({
         description: "Desctiptiron paris meetup"
       }
     ],
-    user: null
+    user: null,
+    loading: null,
+    error: null
   },
   getters: {
     loadedMeetups(state) {
@@ -46,6 +48,12 @@ export const store = new Vuex.Store({
     },
     user(state) {
       return state.user;
+    },
+    error(state) {
+      return state.error;
+    },
+    loading(state) {
+      return state.loading;
     }
   },
   mutations: {
@@ -54,6 +62,15 @@ export const store = new Vuex.Store({
     },
     setUser(state, payload) {
       state.user = payload;
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
+    },
+    setError(state, payload) {
+      state.error = payload;
+    },
+    clearErrors(state) {
+      state.error = null;
     }
   },
   actions: {
@@ -70,10 +87,13 @@ export const store = new Vuex.Store({
       commit("createMeetup", meetup);
     },
     signUpUser({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearErrors");
       firebase
         .auth()
         .createUserWithEmailAndPassword(payload.email, payload.password)
         .then(data => {
+          commit("setLoading", false);
           const newUser = {
             id: data.user.uid,
             registeredMeetups: []
@@ -81,14 +101,19 @@ export const store = new Vuex.Store({
           commit("setUser", newUser);
         })
         .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error);
           console.log(error);
         });
     },
     signInUser({ commit }, payload) {
+      commit("setLoading", true);
+      commit("clearErrors");
       firebase
         .auth()
         .signInWithEmailAndPassword(payload.email, payload.password)
         .then(data => {
+          commit("setLoading", false);
           const newUser = {
             id: data.user.uid,
             registeredMeetups: []
@@ -96,8 +121,13 @@ export const store = new Vuex.Store({
           commit("setUser", newUser);
         })
         .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error);
           console.log(error);
         });
+    },
+    clearErrors({ commit }) {
+      commit("clearErrors");
     }
   }
 });

@@ -6,9 +6,13 @@ import router from "./router";
 import DateFilter from "./filters/date";
 import { store } from "./store";
 
+import AlertComp from "./components/Shared/Alert.vue";
+
 Vue.filter("date", DateFilter);
 
 Vue.config.productionTip = false;
+
+Vue.component("app-alert", AlertComp);
 
 new Vue({
   router,
