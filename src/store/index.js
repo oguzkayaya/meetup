@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import * as firebase from "firebase";
 
 Vue.use(Vuex);
 
@@ -13,7 +14,7 @@ export const store = new Vuex.Store({
         title: "Bilecik Buluşması",
         date: "2020-07-12",
         location: "Bilecik Sultan Market Üstü",
-        description: 'Bilecik Buluşma Açıklaması'
+        description: "Bilecik Buluşma Açıklaması"
       },
       {
         imageUrl:
@@ -22,13 +23,10 @@ export const store = new Vuex.Store({
         title: "Meetup in Paris",
         date: "2019-09-11",
         location: "Paris",
-description: 'Desctiptiron paris meetup'
+        description: "Desctiptiron paris meetup"
       }
     ],
-    user: {
-      id: "qqqqqqqe123s",
-      registeredMeetups: ["qwe11231"]
-    }
+    user: null
   },
   getters: {
     loadedMeetups(state) {
@@ -45,11 +43,17 @@ description: 'Desctiptiron paris meetup'
           return meetup.id == meetupId;
         });
       };
+    },
+    user(state) {
+      return state.user;
     }
   },
   mutations: {
     createMeetup(state, payload) {
       state.loadedMeetups.push(payload);
+    },
+    setUser(state, payload) {
+      state.user = payload;
     }
   },
   actions: {
@@ -64,6 +68,36 @@ description: 'Desctiptiron paris meetup'
       };
       //Firebase ekle bunu kaydet
       commit("createMeetup", meetup);
+    },
+    signUpUser({ commit }, payload) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(data => {
+          const newUser = {
+            id: data.user.uid,
+            registeredMeetups: []
+          };
+          commit("setUser", newUser);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    signInUser({ commit }, payload) {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(payload.email, payload.password)
+        .then(data => {
+          const newUser = {
+            id: data.user.uid,
+            registeredMeetups: []
+          };
+          commit("setUser", newUser);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   }
 });

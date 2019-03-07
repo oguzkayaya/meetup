@@ -35,15 +35,34 @@ export default {
   components: {},
   data() {
     return {
-      sideNav: false,
-      menuItems: [
-        { icon: "supervised_user_circle", title: "Meetups", link: "/meetups" },
-        { icon: "room", title: "Organize Meetup", link: "/meetups/new" },
-        { icon: "person", title: "Profile", link: "/profile" },
+      sideNav: false
+    };
+  },
+  computed: {
+    menuItems() {
+      let menuItems = [
         { icon: "face", title: "Sign up", link: "/signup" },
         { icon: "lock_open", title: "Sign in", link: "/signin" }
-      ]
-    };
+      ];
+      if (this.userIsAuth) {
+        menuItems = [
+          {
+            icon: "supervised_user_circle",
+            title: "Meetups",
+            link: "/meetups"
+          },
+          { icon: "room", title: "Organize Meetup", link: "/meetups/new" },
+          { icon: "person", title: "Profile", link: "/profile" }
+        ];
+      }
+      return menuItems;
+    },
+    userIsAuth() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
+    }
   }
 };
 </script>
