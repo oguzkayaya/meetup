@@ -22,9 +22,15 @@ new Vue({
     firebase.initializeApp({
       apiKey: "AIzaSyArDHXEvusspWWCjjQcYEZVYOUKWQEQmvI",
       authDomain: "meetup-b0a3b.firebaseapp.com",
-      databaseURL: "https://meetup-b0a3b.firebaseio.com",
+      databaseURL: "https://meetup-b0a3b.firebaseio.com/",
       projectId: "meetup-b0a3b",
       storageBucket: "meetup-b0a3b.appspot.com"
     });
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch("autoSignin", user);
+      }
+    });
+    this.$store.dispatch("loadAllMeetups");
   }
 }).$mount("#app");
