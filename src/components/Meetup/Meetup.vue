@@ -18,6 +18,9 @@
           <v-img :src="meetup.imageUrl" height="400px"></v-img>
           <v-card-text>
             <div class="green--text">{{ meetup.date | date }} - {{ meetup.location }}</div>
+            <div>
+              <EditMeetupDateDialog :meetup="meetup" v-if="userIsCreator"></EditMeetupDateDialog>
+            </div>
             <div>{{meetup.description }}</div>
           </v-card-text>
           <v-card-actions>
@@ -32,6 +35,7 @@
 
 <script>
 import EditMeetupDetailsDialog from "./Edit/EditMeetupDetailsDialog.vue";
+import EditMeetupDateDialog from "./Edit/EditMeetupDateDialog.vue";
 export default {
   props: ["id"],
   computed: {
@@ -53,7 +57,8 @@ export default {
     }
   },
   components: {
-    EditMeetupDetailsDialog
+    EditMeetupDetailsDialog,
+    EditMeetupDateDialog
   }
 };
 </script>
